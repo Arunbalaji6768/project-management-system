@@ -165,9 +165,18 @@ This repository includes basic deployment configuration files:
 1. Push the repository to GitHub.
 2. Deploy the backend on Render using the `render.yaml` configuration.
 3. Add your PostgreSQL connection string in Render environment variables.
-4. Deploy the web app to Vercel and set `VITE_API_URL` to your Render backend URL.
-5. Build the mobile app with EAS or Expo to generate the APK.
-6. Record a 5-minute screen-sharing demo showing login and task synchronization across web and mobile.
+4. Apply the database migration once from your local machine using the Render database's external connection URL:
+
+```powershell
+cd backend
+$env:DATABASE_URL = "your-render-postgres-external-connection-url"
+npx prisma migrate deploy
+```
+
+Do not put the database URL in source control. Render's service start command is `npm start`; migrations run separately so a migration process does not prevent the web service from binding its port.
+5. Deploy the web app to Vercel and set `VITE_API_URL` to your Render backend URL.
+6. Build the mobile app with EAS or Expo to generate the APK.
+7. Record a 5-minute screen-sharing demo showing login and task synchronization across web and mobile.
 
 ## Production considerations
 

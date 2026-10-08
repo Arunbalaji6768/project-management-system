@@ -12,4 +12,3 @@ mobile/.env
 mobile/.expo/
 mobile/dist/
 web/dist/
-backend/prisma/migrations/
