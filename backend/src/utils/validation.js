@@ -19,6 +19,25 @@ export const projectStatusValues = ['NOT_STARTED', 'IN_PROGRESS', 'COMPLETED'];
 export const taskPriorityValues = ['LOW', 'MEDIUM', 'HIGH'];
 export const taskStatusValues = ['PENDING', 'IN_PROGRESS', 'COMPLETED'];
 
+const dateInputSchema = z
+  .string()
+  .refine((value) => {
+    if (value === '') return true;
+
+    if (/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+      const parsedDate = new Date(`${value}T00:00:00.000Z`);
+      return (
+        !Number.isNaN(parsedDate.getTime()) &&
+        parsedDate.toISOString().slice(0, 10) === value
+      );
+    }
+
+    return /^\d{4}-\d{2}-\d{2}T/.test(value) && !Number.isNaN(new Date(value).getTime());
+  }, 'Enter a valid date.')
+  .nullable()
+  .optional()
+  .transform((value) => value || null);
+
 export const registerSchema = z.object({
   fullName: z.string().trim().min(2, 'Full name is required.').max(100),
   email: emailSchema,
@@ -34,8 +53,8 @@ export const projectSchema = z.object({
   name: z.string().trim().min(1, 'Project name is required.').max(150),
   description: z.string().trim().max(1000).optional().or(z.literal('')),
   status: z.enum(['NOT_STARTED', 'IN_PROGRESS', 'COMPLETED']).optional().default('NOT_STARTED'),
-  startDate: z.union([z.string().datetime({ offset: true }).nullable(), z.string().datetime().nullable()]).optional().or(z.literal('')).transform((value) => value || null),
-  endDate: z.union([z.string().datetime({ offset: true }).nullable(), z.string().datetime().nullable()]).optional().or(z.literal('')).transform((value) => value || null),
+  startDate: dateInputSchema,
+  endDate: dateInputSchema,
 });
 
 export const taskSchema = z.object({
@@ -43,7 +62,7 @@ export const taskSchema = z.object({
   description: z.string().trim().max(1000).optional().or(z.literal('')),
   priority: z.enum(['LOW', 'MEDIUM', 'HIGH']).optional().default('MEDIUM'),
   status: z.enum(['PENDING', 'IN_PROGRESS', 'COMPLETED']).optional().default('PENDING'),
-  dueDate: z.union([z.string().datetime({ offset: true }).nullable(), z.string().datetime().nullable()]).optional().or(z.literal('')).transform((value) => value || null),
+  dueDate: dateInputSchema,
   projectId: z.string().uuid('Project ID is required.').optional(),
 });
 
