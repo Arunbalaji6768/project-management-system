@@ -1,0 +1,16 @@
+{
+  "expo": {
+    "name": "Project Management Hub",
+    "slug": "project-management-hub",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "assetBundlePatterns": ["**/*"],
+    "android": {
+      "package": "com.example.projectmanagementhub"
+    },
+    "web": {
+      "bundler": "metro"
+    }
+  }
+}

@@ -1,0 +1,15 @@
+node_modules/
+.env
+.env.*
+coverage/
+.DS_Store
+backend/node_modules/
+backend/.env
+web/node_modules/
+web/.env
+mobile/node_modules/
+mobile/.env
+mobile/.expo/
+mobile/dist/
+web/dist/
+backend/prisma/migrations/
