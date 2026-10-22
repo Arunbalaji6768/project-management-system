@@ -2,6 +2,13 @@
 
 This project contains a full-stack, multi-platform application for managing projects and tasks. The backend is built with Node.js + Express + Prisma + PostgreSQL, the web client is a React + Vite app, and the mobile client is a React Native + Expo app.
 
+## Live demo
+
+- Web app (Vercel): https://project-management-system-teal-five.vercel.app/login
+- Backend API (Render): https://project-management-system-fecg.onrender.com
+
+> The backend is hosted on Render, so the first request after a period of inactivity may take a little while to respond.
+
 ## Tech stack
 
 - Backend: Node.js, Express, Prisma, PostgreSQL
